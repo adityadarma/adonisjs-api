@@ -2,7 +2,7 @@ import Role from "#models/role";
 
 export default class RoleRepository {
   async findById(id: number) {
-    return await Role.query().where('id', id)
+    return await Role.query().where('id', id).first()
   }
 
   async getAll() {

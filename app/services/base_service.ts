@@ -13,17 +13,9 @@ export default class BaseService {
     return this
   }
 
-  getCode() {
-    return this.code
-  }
-
   setMessage(message: string) {
     this.message = message
     return this
-  }
-
-  getMessage() {
-    return this.message
   }
 
   setData(data: any) {
@@ -31,22 +23,22 @@ export default class BaseService {
     return this
   }
 
-  getData() {
-    return this.data
-  }
-
   setError(error: any) {
     this.error = error
     return this
   }
 
+  getData() {
+    return this.data
+  }
+
   toJson() {
-    return {
+    return Object.fromEntries(Object.entries({
       // 'code': this.code,
       'message': this.message,
       'data': this.data,
       'errors': this.error
-    }
+    }).filter(([, v]) => typeof v !== undefined && v !== null))
   }
 
   resource(resource: any) {

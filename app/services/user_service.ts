@@ -7,13 +7,12 @@ import CustomException from "#exceptions/custom_exception";
 export default class UserService extends BaseService {
   constructor(private userRepository: UserRepository) {
     super();
-    this.userRepository = userRepository
   }
 
   async findUserById(id: number) {
     try {
       const user = await this.userRepository.findById(id)
-      if (!user.length) {
+      if (!user) {
         throw new CustomException('Data tidak ditemukan')
       }
 
@@ -56,7 +55,7 @@ export default class UserService extends BaseService {
   async updateUser(id: number, data: any) {
     try {
       const user = await this.userRepository.findById(id)
-      if (!user.length) {
+      if (!user) {
         throw new CustomException('Data tidak ditemukan')
       }
 
@@ -75,7 +74,7 @@ export default class UserService extends BaseService {
   async deleteUser(id: number) {
     try {
       const user = await this.userRepository.findById(id)
-      if (!user.length) {
+      if (!user) {
         throw new CustomException('Data tidak ditemukan')
       }
 

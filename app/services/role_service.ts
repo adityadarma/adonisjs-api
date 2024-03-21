@@ -7,13 +7,12 @@ import CustomException from "#exceptions/custom_exception";
 export default class RoleService extends BaseService {
   constructor(private roleRepository: RoleRepository) {
     super();
-    this.roleRepository = roleRepository
   }
 
   async findRoleById(id: number) {
     try {
       const role = await this.roleRepository.findById(id)
-      if (!role.length) {
+      if (!role) {
         throw new CustomException('Data tidak ditemukan')
       }
 
@@ -55,7 +54,7 @@ export default class RoleService extends BaseService {
   async updateRole(id: number, data: any) {
     try {
       const role = await this.roleRepository.findById(id)
-      if (!role.length) {
+      if (!role) {
         throw new CustomException('Data tidak ditemukan')
       }
 
@@ -75,7 +74,7 @@ export default class RoleService extends BaseService {
   async deleteRole(id: number) {
     try {
       const role = await this.roleRepository.findById(id)
-      if (!role.length) {
+      if (!role) {
         throw new CustomException('Data tidak ditemukan')
       }
 
