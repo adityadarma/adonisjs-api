@@ -1,4 +1,5 @@
-import JsonResource from "./json_resource.js";
+import JsonResource from "./core/json_resource.js";
+import UserResource from "./user_resource.js";
 
 export default class RoleResource extends JsonResource {
   public toArray(): any {
@@ -7,6 +8,7 @@ export default class RoleResource extends JsonResource {
         name: this.resource.name,
         description: this.resource.description,
         status: this.resource.isActive,
+        users: this.mergeWhen(this.resource.users, UserResource.collection(this.resource.users)),
       }
   }
 }

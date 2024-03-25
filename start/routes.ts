@@ -14,13 +14,19 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
 router.group(() => {
+
+  router.group(() => {
+    router.post('/login', [AuthController, 'login'])
+  }).prefix('auth')
+
   router.group(() => {
     router.get('/', [RolesController, 'index'])
     router.post('/', [RolesController, 'store'])
     router.get('/:id', [RolesController, 'show'])
     router.put('/:id', [RolesController, 'update'])
     router.delete('/:id', [RolesController, 'delete'])
-  }).prefix('roles').use(middleware.auth({guards: ['api']}))
+  }).prefix('roles')
+  .use(middleware.auth({guards: ['api']}))
 
   router.group(() => {
     router.get('/', [UsersController, 'index'])
@@ -28,9 +34,7 @@ router.group(() => {
     router.get('/:id', [UsersController, 'show'])
     router.put('/:id', [UsersController, 'update'])
     router.delete('/:id', [UsersController, 'delete'])
-  }).prefix('users').use(middleware.auth({guards: ['api']}))
+  }).prefix('users')
+  .use(middleware.auth({guards: ['api']}))
 
-  router.group(() => {
-    router.post('/login', [AuthController, 'login'])
-  }).prefix('auth')
 }).prefix('api')

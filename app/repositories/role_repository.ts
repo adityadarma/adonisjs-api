@@ -6,7 +6,7 @@ export default class RoleRepository {
   }
 
   async getAll() {
-    return await Role.all()
+    return await Role.query().preload('users')
   }
 
   async store(data: any) {
