@@ -34,7 +34,7 @@ export default class BaseService {
 
   toJson() {
     return Object.fromEntries(Object.entries({
-      // 'code': this.code,
+      'code': this.code,
       'message': this.message,
       'data': this.data,
       'errors': this.error
@@ -55,8 +55,7 @@ export default class BaseService {
   }
 
   exceptionCustom(error: Exception, _message = 'Terjadi suatu kesalahan') {
-    let code = error.status !== undefined
-      && (error.status >= 100 && error.status < 600)
+    let code = error.status !== undefined && (error.status >= 100 && error.status < 600)
       ? error.status
       : 500
 

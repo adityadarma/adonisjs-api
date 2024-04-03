@@ -1,5 +1,6 @@
 import RoleResource from '#resources/role_resource'
 import RoleService from '#services/role_service'
+import { createRoleValidator, messageRoleValidator, updateRoleValidator } from '#validators/role'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -16,7 +17,11 @@ export default class RolesController {
   }
 
   async store({request, response}: HttpContext) {
-    let result = await this.roleService.saveRole(request.all())
+    let data = await request.validateUsing(createRoleValidator, {
+      messagesProvider: messageRoleValidator
+    })
+
+    let result = await this.roleService.saveRole(data)
 
     return response.status(result.code).json(result.toJson())
   }
@@ -28,7 +33,14 @@ export default class RolesController {
   }
 
   async update({request, response}: HttpContext) {
-    let result = await this.roleService.updateRole(request.params().id, request.all())
+    let data = await request.validateUsing(updateRoleValidator, {
+      messagesProvider: messageRoleValidator,
+      meta: {
+        roleId: request.params().id
+      }
+    })
+
+    let result = await this.roleService.updateRole(request.params().id, data)
 
     return response.status(result.code).json(result.toJson())
   }
