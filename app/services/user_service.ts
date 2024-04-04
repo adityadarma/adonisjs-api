@@ -2,6 +2,7 @@ import UserRepository from "../repositories/user_repository.js";
 import { inject } from "@adonisjs/core";
 import BaseService from "./base_service.js";
 import CustomException from "#exceptions/custom_exception";
+import SendEmail from "#jobs/send_email";
 
 @inject()
 export default class UserService extends BaseService {
@@ -44,6 +45,10 @@ export default class UserService extends BaseService {
         'name': data.name,
         'password': data.password
       })
+
+      SendEmail.dispatch({
+        email: data.email
+      });
 
       return this.setCode(201)
         .setMessage('Data user created')

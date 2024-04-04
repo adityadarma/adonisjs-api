@@ -13,6 +13,8 @@ import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
+router.jobs() // /jobs
+
 router.group(() => {
 
   router.group(() => {
@@ -35,6 +37,6 @@ router.group(() => {
     router.put('/:id', [UsersController, 'update'])
     router.delete('/:id', [UsersController, 'delete'])
   }).prefix('users')
-  .use(middleware.auth({guards: ['api']}))
+  // .use(middleware.auth({guards: ['api']}))
 
 }).prefix('api')

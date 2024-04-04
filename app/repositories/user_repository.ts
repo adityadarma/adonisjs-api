@@ -10,7 +10,7 @@ export default class UserRepository {
   }
 
   async getAll() {
-    return await User.query()
+    return await User.query().preload('role')
   }
 
   async store(data: any) {

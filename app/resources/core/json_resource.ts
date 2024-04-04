@@ -27,7 +27,7 @@ export default class JsonResource {
     throw new Error('Method toArray must be implemented')
   }
 
-  public when(condition: boolean, value: any, defaultValue = null) {
+  public when(condition: boolean, value: any, defaultValue: any = null) {
     if (condition) {
       return value
     }
