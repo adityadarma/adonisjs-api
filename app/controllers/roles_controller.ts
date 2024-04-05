@@ -11,7 +11,7 @@ export default class RolesController {
   async index({ response }: HttpContext) {
     let result = await this.roleService.getAllRole()
 
-    return response.status(result.code).json(result.resource(RoleResource).toJson())
+    return response.status(result.getCode()).json(result.toJsonResource(RoleResource))
   }
 
   async store({ request, response }: HttpContext) {
@@ -21,13 +21,13 @@ export default class RolesController {
 
     let result = await this.roleService.saveRole(data)
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 
   async show({ request, response }: HttpContext) {
     const result = await this.roleService.findRoleById(request.params().id)
 
-    return response.status(result.code).json(result.resource(RoleResource).toJson())
+    return response.status(result.getCode()).json(result.toJsonResource(RoleResource))
   }
 
   async update({ request, response }: HttpContext) {
@@ -40,12 +40,12 @@ export default class RolesController {
 
     let result = await this.roleService.updateRole(request.params().id, data)
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 
   async delete({ request, response }: HttpContext) {
     let result = await this.roleService.deleteRole(request.params().id)
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 }

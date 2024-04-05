@@ -11,7 +11,7 @@ export default class UsersController {
   async index({ response }: HttpContext) {
     let result = await this.userService.getAllUser()
 
-    return response.status(result.code).json(result.resource(UserResource).toJson())
+    return response.status(result.getCode()).json(result.toJsonResource(UserResource))
   }
 
   async store({ request, response }: HttpContext) {
@@ -21,13 +21,13 @@ export default class UsersController {
 
     let result = await this.userService.saveUser(data)
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 
   async show({ request, response }: HttpContext) {
     const result = await this.userService.findUserById(request.params().id)
 
-    return response.status(result.code).json(result.resource(UserResource).toJson())
+    return response.status(result.getCode()).json(result.toJsonResource(UserResource))
   }
 
   async update({ request, response }: HttpContext) {
@@ -40,12 +40,12 @@ export default class UsersController {
 
     let result = await this.userService.updateUser(request.params().id, data)
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 
   async delete({ request, response }: HttpContext) {
     let result = await this.userService.deleteUser(request.params().id)
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 }

@@ -3,10 +3,10 @@ import env from '#start/env'
 import { Exception } from '@adonisjs/core/exceptions'
 
 export default class BaseService {
-  code: number = 200
-  message: string = ''
-  data: any = null
-  error: any = null
+  private code: number = 200
+  private message: string = ""
+  private data: any = null
+  private error: any = null
 
   setCode(code: number) {
     this.code = code
@@ -28,6 +28,10 @@ export default class BaseService {
     return this
   }
 
+  getCode() {
+    return this.code
+  }
+
   getData() {
     return this.data
   }
@@ -43,7 +47,7 @@ export default class BaseService {
     )
   }
 
-  resource(resource: any) {
+  toJsonResource(resource: any) {
     if (!this.error) {
       if (Array.isArray(this.data)) {
         this.data = resource.collection(this.data)
@@ -52,7 +56,7 @@ export default class BaseService {
       }
     }
 
-    return this
+    return this.toJson()
   }
 
   exceptionCustom(error: Exception, _message = 'Terjadi suatu kesalahan') {

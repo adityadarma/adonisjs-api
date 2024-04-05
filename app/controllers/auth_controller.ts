@@ -9,6 +9,6 @@ export default class AuthController {
   async login({ request, response }: HttpContext) {
     let result = await this.authService.loginUser(request.only(['email', 'password']))
 
-    return response.status(result.code).json(result.toJson())
+    return response.status(result.getCode()).json(result.toJson())
   }
 }
