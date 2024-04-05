@@ -43,7 +43,8 @@ export default defineConfig({
       environment: ['console'],
     },
     () => import('adonisjs-jobs/jobs_provider'),
-    () => import('adonisjs-maintenance/MaintenanceProvider')
+    () => import('adonisjs-maintenance/MaintenanceProvider'),
+    () => import('adonis-lucid-soft-deletes/provider')
   ],
 
   /*

@@ -2,27 +2,27 @@ import User from "#models/user";
 
 export default class UserRepository {
   async findById(id: number) {
-    return await User.query().preload('role').where('id', id).first()
+    return await User.findBy('id', id)
   }
 
   async findByEmail(email: string) {
-    return await User.query().where('email', email).first()
+    return await User.findBy('email', email)
   }
 
   async getAll() {
-    return await User.query().preload('role')
+    return await User.all()
   }
 
   async store(data: any) {
     return await User.create(data)
   }
 
-  async update(id: number, data: any) {
-    return await User.query().where('id', id).update(data)
+  async update(user: User, data: any) {
+    return await user.merge(data).save()
   }
 
-  async delete(id: number) {
-    return await User.query().where('id', id).delete()
+  async delete(user: User) {
+    return await user.delete()
   }
 
   async createAccessToken(user: User) {

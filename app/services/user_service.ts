@@ -14,7 +14,7 @@ export default class UserService extends BaseService {
     try {
       const user = await this.userRepository.findById(id)
       if (!user) {
-        throw new CustomException('Data tidak ditemukan')
+        throw new CustomException('Data tidak ditemukan', {status: 404})
       }
 
       return this.setCode(200)
@@ -61,10 +61,10 @@ export default class UserService extends BaseService {
     try {
       const user = await this.userRepository.findById(id)
       if (!user) {
-        throw new CustomException('Data tidak ditemukan')
+        throw new CustomException('Data tidak ditemukan', {status: 404})
       }
 
-      await this.userRepository.update(id, {
+      await this.userRepository.update(user, {
         'email': data.email,
         'name': data.name
       })
@@ -80,10 +80,10 @@ export default class UserService extends BaseService {
     try {
       const user = await this.userRepository.findById(id)
       if (!user) {
-        throw new CustomException('Data tidak ditemukan')
+        throw new CustomException('Data tidak ditemukan', {status: 404})
       }
 
-      await this.userRepository.delete(id)
+      await this.userRepository.delete(user)
 
       return this.setCode(200)
         .setMessage('Data users deleted')

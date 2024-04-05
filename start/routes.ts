@@ -28,7 +28,7 @@ router.group(() => {
     router.put('/:id', [RolesController, 'update'])
     router.delete('/:id', [RolesController, 'delete'])
   }).prefix('roles')
-  .use(middleware.auth({guards: ['api']}))
+  // .use(middleware.auth({guards: ['api']}))
 
   router.group(() => {
     router.get('/', [UsersController, 'index'])

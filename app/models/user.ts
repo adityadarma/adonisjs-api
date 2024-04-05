@@ -5,6 +5,7 @@ import { compose } from '@adonisjs/core/helpers'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 import Role from './role.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
@@ -12,7 +13,7 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   passwordColumnName: 'password',
 })
 
-export default class User extends compose(BaseModel, AuthFinder) {
+export default class User extends compose(BaseModel, SoftDeletes, AuthFinder) {
   @column({ isPrimary: true })
   declare id: number
 
@@ -33,6 +34,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @column.dateTime()
+  declare deletedAt: DateTime | null
 
   static accessTokens = DbAccessTokensProvider.forModel(User)
 
