@@ -1,4 +1,4 @@
-import Role from "#models/role";
+import Role from '#models/role'
 
 export default class RoleRepository {
   async findById(id: number) {

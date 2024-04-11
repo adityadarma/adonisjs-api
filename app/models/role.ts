@@ -8,13 +8,13 @@ export default class Role extends BaseModel {
   declare id: number
 
   @column()
-  declare name:string
+  declare name: string
 
   @column()
-  declare description:string
+  declare description: string
 
   @column()
-  declare isActive:boolean
+  declare isActive: boolean
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

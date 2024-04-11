@@ -1,13 +1,13 @@
-import CustomException from "#exceptions/custom_exception";
-import UserRepository from "#repositories/user_repository";
-import hash from "@adonisjs/core/services/hash";
-import BaseService from "./base_service.js";
-import { inject } from "@adonisjs/core";
+import CustomException from '#exceptions/custom_exception'
+import UserRepository from '#repositories/user_repository'
+import hash from '@adonisjs/core/services/hash'
+import BaseService from './base_service.js'
+import { inject } from '@adonisjs/core'
 
 @inject()
 export default class AuthService extends BaseService {
   constructor(private userRepository: UserRepository) {
-    super();
+    super()
   }
 
   async loginUser(data: any) {
@@ -24,9 +24,7 @@ export default class AuthService extends BaseService {
 
       const token = await this.userRepository.createAccessToken(user)
 
-      return this.setCode(200)
-        .setMessage('Generate access token')
-        .setData(token)
+      return this.setCode(200).setMessage('Generate access token').setData(token)
     } catch (error) {
       return this.exceptionCustom(error)
     }

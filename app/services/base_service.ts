@@ -1,10 +1,10 @@
-import CustomException from "#exceptions/custom_exception";
-import env from "#start/env";
-import { Exception } from "@adonisjs/core/exceptions";
+import CustomException from '#exceptions/custom_exception'
+import env from '#start/env'
+import { Exception } from '@adonisjs/core/exceptions'
 
 export default class BaseService {
   code: number = 200
-  message: string = ""
+  message: string = ''
   data: any = null
   error: any = null
 
@@ -33,20 +33,21 @@ export default class BaseService {
   }
 
   toJson() {
-    return Object.fromEntries(Object.entries({
-      'code': this.code,
-      'message': this.message,
-      'data': this.data,
-      'errors': this.error
-    }).filter(([, v]) => typeof v !== undefined && v !== null))
+    return Object.fromEntries(
+      Object.entries({
+        code: this.code,
+        message: this.message,
+        data: this.data,
+        errors: this.error,
+      }).filter(([, v]) => typeof v !== 'undefined' && v !== null)
+    )
   }
 
   resource(resource: any) {
     if (!this.error) {
-      if (this.data instanceof Array) {
+      if (Array.isArray(this.data)) {
         this.data = resource.collection(this.data)
-      }
-      else {
+      } else {
         this.data = resource.item(this.data)
       }
     }
@@ -55,9 +56,8 @@ export default class BaseService {
   }
 
   exceptionCustom(error: Exception, _message = 'Terjadi suatu kesalahan') {
-    let code = error.status !== undefined && (error.status >= 100 && error.status < 600)
-      ? error.status
-      : 500
+    let code =
+      error.status !== undefined && error.status >= 100 && error.status < 600 ? error.status : 500
 
     if (error instanceof CustomException) {
       _message = error.message

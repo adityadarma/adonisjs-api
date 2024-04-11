@@ -1,5 +1,5 @@
 export default class MissingValue {
-  public isMissing() {
+  isMissing() {
     return true
   }
 }

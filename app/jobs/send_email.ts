@@ -3,7 +3,7 @@ import { Job } from 'adonisjs-jobs'
 type SendEmailPayload = {}
 
 export default class SendEmail extends Job {
-    async handle(payload: SendEmailPayload) {
-        this.logger.info(payload)
-    }
+  async handle(payload: SendEmailPayload) {
+    this.logger.info(payload)
+  }
 }

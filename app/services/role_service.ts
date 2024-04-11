@@ -1,24 +1,22 @@
-import RoleRepository from "#repositories/role_repository";
-import { inject } from "@adonisjs/core";
-import BaseService from "./base_service.js";
-import CustomException from "#exceptions/custom_exception";
+import RoleRepository from '#repositories/role_repository'
+import { inject } from '@adonisjs/core'
+import BaseService from './base_service.js'
+import CustomException from '#exceptions/custom_exception'
 
 @inject()
 export default class RoleService extends BaseService {
   constructor(private roleRepository: RoleRepository) {
-    super();
+    super()
   }
 
   async findRoleById(id: number) {
     try {
       const role = await this.roleRepository.findById(id)
       if (!role) {
-        throw new CustomException('Data tidak ditemukan', {status: 404})
+        throw new CustomException('Data tidak ditemukan', { status: 404 })
       }
 
-      return this.setCode(200)
-        .setMessage('Data role')
-        .setData(role)
+      return this.setCode(200).setMessage('Data role').setData(role)
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -28,9 +26,7 @@ export default class RoleService extends BaseService {
     try {
       const roles = await this.roleRepository.getAll()
 
-      return this.setCode(200)
-        .setMessage('List data role')
-        .setData(roles)
+      return this.setCode(200).setMessage('List data role').setData(roles)
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -39,13 +35,12 @@ export default class RoleService extends BaseService {
   async saveRole(data: any) {
     try {
       await this.roleRepository.store({
-        'name': data.name,
-        'description': data.description,
-        'isActive': data.status
+        name: data.name,
+        description: data.description,
+        isActive: data.status,
       })
 
-      return this.setCode(201)
-        .setMessage('Data role created')
+      return this.setCode(201).setMessage('Data role created')
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -55,17 +50,16 @@ export default class RoleService extends BaseService {
     try {
       const role = await this.roleRepository.findById(id)
       if (!role) {
-        throw new CustomException('Data tidak ditemukan', {status: 404})
+        throw new CustomException('Data tidak ditemukan', { status: 404 })
       }
 
       await this.roleRepository.update(role, {
-        'name': data.name,
-        'description': data.description,
-        'isActive': data.status
+        name: data.name,
+        description: data.description,
+        isActive: data.status,
       })
 
-      return this.setCode(200)
-        .setMessage('Data role updated')
+      return this.setCode(200).setMessage('Data role updated')
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -75,13 +69,12 @@ export default class RoleService extends BaseService {
     try {
       const role = await this.roleRepository.findById(id)
       if (!role) {
-        throw new CustomException('Data tidak ditemukan', {status: 404})
+        throw new CustomException('Data tidak ditemukan', { status: 404 })
       }
 
       await this.roleRepository.delete(role)
 
-      return this.setCode(200)
-        .setMessage('Data role deleted')
+      return this.setCode(200).setMessage('Data role deleted')
     } catch (error) {
       return this.exceptionCustom(error)
     }
