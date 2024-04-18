@@ -2,7 +2,7 @@ import UserRepository from '../repositories/user_repository.js'
 import { inject } from '@adonisjs/core'
 import BaseService from './base_service.js'
 import CustomException from '#exceptions/custom_exception'
-import SendEmail from '#jobs/send_email'
+import SendEmail from '#jobs/send_email_verify'
 
 @inject()
 export default class UserService extends BaseService {
@@ -17,7 +17,7 @@ export default class UserService extends BaseService {
         throw new CustomException('Data tidak ditemukan', { status: 404 })
       }
 
-      return this.setCode(200).setMessage('Data user').setData(user)
+      return this.setData(user).setCode(200).setMessage('Data user')
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -27,7 +27,7 @@ export default class UserService extends BaseService {
     try {
       let users = await this.userRepository.getAll()
 
-      return this.setCode(200).setMessage('Data users').setData(users)
+      return this.setData(users).setCode(200).setMessage('Data users')
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -35,7 +35,7 @@ export default class UserService extends BaseService {
 
   async saveUser(data: any) {
     try {
-      await this.userRepository.store({
+      const user = await this.userRepository.store({
         role_id: data.role_id,
         email: data.email,
         name: data.name,
@@ -43,7 +43,7 @@ export default class UserService extends BaseService {
       })
 
       await SendEmail.dispatch({
-        email: data.email,
+        user: user,
       })
 
       return this.setCode(201).setMessage('Data user created')

@@ -9,17 +9,17 @@ export default class UsersController {
   constructor(protected userService: UserService) {}
 
   async index({ response }: HttpContext) {
-    let result = await this.userService.getAllUser()
+    const result = await this.userService.getAllUser()
 
     return response.status(result.getCode()).json(result.toJsonResource(UserResource))
   }
 
   async store({ request, response }: HttpContext) {
-    let data = await request.validateUsing(createUserValidator, {
+    const data = await request.validateUsing(createUserValidator, {
       messagesProvider: messageUserValidator,
     })
 
-    let result = await this.userService.saveUser(data)
+    const result = await this.userService.saveUser(data)
 
     return response.status(result.getCode()).json(result.toJson())
   }
@@ -31,20 +31,20 @@ export default class UsersController {
   }
 
   async update({ request, response }: HttpContext) {
-    let data = await request.validateUsing(createUserValidator, {
+    const data = await request.validateUsing(createUserValidator, {
       messagesProvider: messageUserValidator,
       meta: {
         userId: request.params().id,
       },
     })
 
-    let result = await this.userService.updateUser(request.params().id, data)
+    const result = await this.userService.updateUser(request.params().id, data)
 
     return response.status(result.getCode()).json(result.toJson())
   }
 
   async delete({ request, response }: HttpContext) {
-    let result = await this.userService.deleteUser(request.params().id)
+    const result = await this.userService.deleteUser(request.params().id)
 
     return response.status(result.getCode()).json(result.toJson())
   }

@@ -28,4 +28,8 @@ export default class UserRepository {
   async createAccessToken(user: User) {
     return await User.accessTokens.create(user)
   }
+
+  async deleteAccessTokenCurrent(user: User, token: number) {
+    return User.accessTokens.delete(user, token)
+  }
 }

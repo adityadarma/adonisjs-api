@@ -3,8 +3,9 @@ import UserRepository from '#repositories/user_repository'
 import hash from '@adonisjs/core/services/hash'
 import BaseService from './base_service.js'
 import { inject } from '@adonisjs/core'
-import SendEmail from '#jobs/send_email'
+import SendEmailVerify from '#jobs/send_email_verify'
 import redis from '@adonisjs/redis/services/main'
+import Auth from '../utilities/auth.js'
 
 @inject()
 export default class AuthService extends BaseService {
@@ -14,15 +15,15 @@ export default class AuthService extends BaseService {
 
   async registerUser(data: any) {
     try {
-      await this.userRepository.store({
+      const user = await this.userRepository.store({
         role_id: data.role_id,
         email: data.email,
         name: data.name,
         password: data.password,
       })
 
-      await SendEmail.dispatch({
-        email: data.email,
+      await SendEmailVerify.dispatch({
+        user: user,
       })
 
       return this.setCode(201).setMessage('Registration successfully')
@@ -46,7 +47,19 @@ export default class AuthService extends BaseService {
       const token = await this.userRepository.createAccessToken(user)
       await redis.set('email', data.email)
 
-      return this.setCode(200).setMessage('Login success').setData(token)
+      return this.setData(token).setCode(200).setMessage('Login success')
+    } catch (error) {
+      return this.exceptionCustom(error)
+    }
+  }
+
+  async logoutUser() {
+    try {
+      const user = await Auth.user()
+
+      await this.userRepository.deleteAccessTokenCurrent(user, user?.currentAccessToken.identifier)
+
+      return this.setCode(200).setMessage('Logout success')
     } catch (error) {
       return this.exceptionCustom(error)
     }

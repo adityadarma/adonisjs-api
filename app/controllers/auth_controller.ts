@@ -8,21 +8,27 @@ export default class AuthController {
   constructor(protected authService: AuthService) {}
 
   async register({ request, response }: HttpContext) {
-    let data = await request.validateUsing(registerValidator, {
+    const data = await request.validateUsing(registerValidator, {
       messagesProvider: messageRegisterValidator,
     })
 
-    let result = await this.authService.registerUser(data)
+    const result = await this.authService.registerUser(data)
 
     return response.status(result.getCode()).json(result.toJson())
   }
 
   async login({ request, response }: HttpContext) {
-    let data = await request.validateUsing(loginValidator, {
+    const data = await request.validateUsing(loginValidator, {
       messagesProvider: messageLoginValidator,
     })
 
-    let result = await this.authService.loginUser(data)
+    const result = await this.authService.loginUser(data)
+
+    return response.status(result.getCode()).json(result.toJson())
+  }
+
+  async logout({ response }: HttpContext) {
+    const result = await this.authService.logoutUser()
 
     return response.status(result.getCode()).json(result.toJson())
   }

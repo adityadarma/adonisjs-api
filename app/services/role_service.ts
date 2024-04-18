@@ -16,7 +16,7 @@ export default class RoleService extends BaseService {
         throw new CustomException('Data tidak ditemukan', { status: 404 })
       }
 
-      return this.setCode(200).setMessage('Data role').setData(role)
+      return this.setData(role).setCode(200).setMessage('Data role')
     } catch (error) {
       return this.exceptionCustom(error)
     }
@@ -26,7 +26,7 @@ export default class RoleService extends BaseService {
     try {
       const roles = await this.roleRepository.getAll()
 
-      return this.setCode(200).setMessage('List data role').setData(roles)
+      return this.setData(roles).setCode(200).setMessage('List data role')
     } catch (error) {
       return this.exceptionCustom(error)
     }
