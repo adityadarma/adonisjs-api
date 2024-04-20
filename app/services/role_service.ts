@@ -13,7 +13,7 @@ export default class RoleService extends BaseService {
     try {
       const role = await this.roleRepository.findById(id)
       if (!role) {
-        throw new CustomException('Data tidak ditemukan', { status: 404 })
+        throw new CustomException('Data tidak ditemukan', 404)
       }
 
       return this.setData(role).setCode(200).setMessage('Data role')
@@ -50,7 +50,7 @@ export default class RoleService extends BaseService {
     try {
       const role = await this.roleRepository.findById(id)
       if (!role) {
-        throw new CustomException('Data tidak ditemukan', { status: 404 })
+        throw new CustomException('Data tidak ditemukan', 404)
       }
 
       await this.roleRepository.update(role, {
@@ -69,7 +69,7 @@ export default class RoleService extends BaseService {
     try {
       const role = await this.roleRepository.findById(id)
       if (!role) {
-        throw new CustomException('Data tidak ditemukan', { status: 404 })
+        throw new CustomException('Data tidak ditemukan', 404)
       }
 
       await this.roleRepository.delete(role)

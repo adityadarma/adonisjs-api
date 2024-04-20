@@ -6,7 +6,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 @inject()
 export default class RolesController {
-  constructor(protected roleService: RoleService) {}
+  constructor(private roleService: RoleService) {}
 
   async index({ response }: HttpContext) {
     const result = await this.roleService.getAllRole()

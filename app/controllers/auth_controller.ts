@@ -1,11 +1,17 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import AuthService from '#services/auth_service'
 import { inject } from '@adonisjs/core'
-import { loginValidator, messageLoginValidator, messageRegisterValidator, registerValidator } from '#validators/auth'
+import {
+  loginValidator,
+  messageLoginValidator,
+  messageRegisterValidator,
+  registerValidator,
+} from '#validators/auth'
+import UserResource from '#resources/user_resource'
 
 @inject()
 export default class AuthController {
-  constructor(protected authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   async register({ request, response }: HttpContext) {
     const data = await request.validateUsing(registerValidator, {
@@ -31,5 +37,11 @@ export default class AuthController {
     const result = await this.authService.logoutUser()
 
     return response.status(result.getCode()).json(result.toJson())
+  }
+
+  async me({ response }: HttpContext) {
+    const result = await this.authService.authUser()
+
+    return response.status(result.getCode()).json(result.toJsonResource(UserResource))
   }
 }

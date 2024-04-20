@@ -6,7 +6,7 @@ import { HttpContext } from '@adonisjs/core/http'
 
 @inject()
 export default class UsersController {
-  constructor(protected userService: UserService) {}
+  constructor(private userService: UserService) {}
 
   async index({ response }: HttpContext) {
     const result = await this.userService.getAllUser()

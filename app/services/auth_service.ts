@@ -57,9 +57,20 @@ export default class AuthService extends BaseService {
     try {
       const user = await Auth.user()
 
+      // @ts-ignore
       await this.userRepository.deleteAccessTokenCurrent(user, user?.currentAccessToken.identifier)
 
       return this.setCode(200).setMessage('Logout success')
+    } catch (error) {
+      return this.exceptionCustom(error)
+    }
+  }
+
+  async authUser() {
+    try {
+      const user = await Auth.user()
+
+      return this.setData(user).setCode(200).setMessage('User authenticated')
     } catch (error) {
       return this.exceptionCustom(error)
     }

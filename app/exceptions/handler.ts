@@ -15,18 +15,18 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    */
   async handle(error: unknown, ctx: HttpContext) {
     if (error instanceof errors.E_VALIDATION_ERROR) {
-      const formattedErrors: any = {};
+      const formattedErrors: any = {}
 
       error.messages.forEach((errorItem: any) => {
-        formattedErrors[errorItem.field] = errorItem.message;
-      });
+        formattedErrors[errorItem.field] = errorItem.message
+      })
 
       ctx.response.status(422).send({
         message: 'The given data was invalid.',
-        errors: formattedErrors
-      });
+        errors: formattedErrors,
+      })
 
-      return;
+      return
     }
 
     return super.handle(error, ctx)

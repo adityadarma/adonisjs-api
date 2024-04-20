@@ -1,4 +1,4 @@
-import { HttpContext } from "@adonisjs/core/http";
+import { HttpContext } from '@adonisjs/core/http'
 
 export default class Auth {
   static async check() {
@@ -14,7 +14,7 @@ export default class Auth {
 
   static async user() {
     if (await this.check()) {
-      return HttpContext.getOrFail().auth.user
+      return HttpContext.getOrFail().auth.getUserOrFail()
     }
     return null
   }

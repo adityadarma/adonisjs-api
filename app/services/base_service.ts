@@ -4,7 +4,7 @@ import { Exception } from '@adonisjs/core/exceptions'
 
 export default class BaseService {
   private code: number = 200
-  private message: string = ""
+  private message: string = ''
   private data: any = null
   private error: any = null
 
