@@ -45,9 +45,17 @@ export default class JsonResource {
     return condition && condition !== undefined ? data : new MissingValue()
   }
 
-  whenLoaded(relationship: any, value: any, defaultValue = null) {
+  mergeResourceWhen(data: any, resource: any) {
+    if (Array.isArray(data)) {
+      return data && data !== undefined ? resource.collection(data) : new MissingValue()
+    } else {
+      return data && data !== undefined ? resource.item(data) : new MissingValue()
+    }
+  }
+
+  whenLoaded(relationship: any, resource: any, defaultValue = null) {
     if (relationship !== undefined) {
-      return value
+      return this.mergeResourceWhen(relationship, resource)
     }
 
     return defaultValue !== undefined ? defaultValue : new MissingValue()

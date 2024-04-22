@@ -2,7 +2,9 @@ import UserRepository from '../repositories/user_repository.js'
 import { inject } from '@adonisjs/core'
 import BaseService from './base_service.js'
 import CustomException from '#exceptions/custom_exception'
-import SendEmail from '#jobs/send_email_verify'
+import mail from '@adonisjs/mail/services/main'
+import VerifyENotification from '#mails/verify_e_notification'
+import db from '@adonisjs/lucid/services/db'
 
 @inject()
 export default class UserService extends BaseService {
@@ -12,7 +14,7 @@ export default class UserService extends BaseService {
 
   async findUserById(id: number) {
     try {
-      const user = await this.userRepository.findById(id)
+      const user = await this.userRepository.queryByIdWithRelation(id, ['role'])
       if (!user) {
         throw new CustomException('Data tidak ditemukan', 404)
       }
@@ -25,7 +27,14 @@ export default class UserService extends BaseService {
 
   async getAllUser() {
     try {
-      let users = await this.userRepository.getAll()
+      let users = await this.userRepository.queryAllWithRelationWhere([
+        {
+          'relation': 'role',
+          'column': 'id',
+          'operator': '=',
+          'value': 1
+        }
+      ])
 
       return this.setData(users).setCode(200).setMessage('Data users')
     } catch (error) {
@@ -34,20 +43,21 @@ export default class UserService extends BaseService {
   }
 
   async saveUser(data: any) {
+    const trx = await db.transaction()
     try {
       const user = await this.userRepository.store({
         role_id: data.role_id,
         email: data.email,
         name: data.name,
         password: data.password,
-      })
+      }, trx)
 
-      await SendEmail.dispatch({
-        user: user,
-      })
+      await mail.send(new VerifyENotification(user.email))
 
+      await trx.commit()
       return this.setCode(201).setMessage('Data user created')
     } catch (error) {
+      await trx.rollback()
       return this.exceptionCustom(error)
     }
   }

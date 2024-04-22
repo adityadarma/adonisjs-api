@@ -8,7 +8,7 @@ export default class RoleResource extends JsonResource {
       name: this.resource.name,
       description: this.resource.description,
       status: this.resource.isActive,
-      users: this.mergeWhen(this.resource.users, UserResource.collection(this.resource.users)),
+      users: this.mergeResourceWhen(this.resource.users, UserResource),
     }
   }
 }

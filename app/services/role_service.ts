@@ -24,7 +24,7 @@ export default class RoleService extends BaseService {
 
   async getAllRole() {
     try {
-      const roles = await this.roleRepository.getAll()
+      const roles = await this.roleRepository.queryAllWithRelation(['users'])
 
       return this.setData(roles).setCode(200).setMessage('List data role')
     } catch (error) {
