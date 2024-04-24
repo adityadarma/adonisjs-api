@@ -29,7 +29,7 @@ export const updateUserValidator = vine.compile(
       .unique(async (db, value, field) => {
         return !(await db
           .from('users')
-          .whereNot('id', field.meta.userId)
+          .whereNot('id', field.meta.id)
           .where('email', value)
           .first())
       }),

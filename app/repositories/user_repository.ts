@@ -47,14 +47,14 @@ export default class UserRepository {
     return await User.create(data, { client: trx })
   }
 
-  async update(user: User, data: any, trx?: any) {
-    user.useTransaction(trx)
-    return await user.merge(data).save()
+  async update(model: User, data: any, trx?: any) {
+    model.useTransaction(trx)
+    return await model.merge(data).save()
   }
 
-  async delete(user: User, trx?: any) {
-    user.useTransaction(trx)
-    return await user.delete()
+  async delete(model: User, trx?: any) {
+    model.useTransaction(trx)
+    return await model.delete()
   }
 
   async createAccessToken(user: User) {

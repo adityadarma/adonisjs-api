@@ -1,3 +1,23 @@
 export default class RepositoryName {
+  async findById(id: number) {
+    return await Model.findBy('id', id)
+  }
 
+  async getAll() {
+    return await Model.all()
+  }
+
+  async store(data: any, trx?: any) {
+    return await Model.create(data, { client: trx })
+  }
+
+  async update(model: Model, data: any, trx?: any) {
+    model.useTransaction(trx)
+    return await model.merge(data).save()
+  }
+
+  async delete(model: Model, trx?: any) {
+    model.useTransaction(trx)
+    return await model.delete()
+  }
 }

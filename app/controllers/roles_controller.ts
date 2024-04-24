@@ -34,7 +34,7 @@ export default class RolesController {
     const data = await request.validateUsing(updateRoleValidator, {
       messagesProvider: messageRoleValidator,
       meta: {
-        roleId: request.params().id,
+        id: request.params().id,
       },
     })
 

@@ -1,0 +1,9 @@
+import JsonResource from './core/json_resource.js'
+
+export default class ResourceName extends JsonResource {
+  toArray(): any {
+    return {
+      //
+    }
+  }
+}

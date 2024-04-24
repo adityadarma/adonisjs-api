@@ -35,13 +35,13 @@ export default class RoleRepository {
     return await Role.create(data, { client: trx })
   }
 
-  async update(role: Role, data: any, trx?: any) {
-    role.useTransaction(trx)
-    return await role.merge(data).save()
+  async update(model: Role, data: any, trx?: any) {
+    model.useTransaction(trx)
+    return await model.merge(data).save()
   }
 
-  async delete(role: Role, trx?: any) {
-    role.useTransaction(trx)
-    return await role.delete()
+  async delete(model: Role, trx?: any) {
+    model.useTransaction(trx)
+    return await model.delete()
   }
 }

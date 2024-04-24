@@ -18,7 +18,7 @@ export default class User extends compose(BaseModel, SoftDeletes, AuthFinder) {
   declare id: number
 
   @column()
-  declare roleId: bigint
+  declare roleId: number
 
   @column()
   declare name: string

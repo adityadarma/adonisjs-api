@@ -34,7 +34,7 @@ export default class UsersController {
     const data = await request.validateUsing(createUserValidator, {
       messagesProvider: messageUserValidator,
       meta: {
-        userId: request.params().id,
+        id: request.params().id,
       },
     })
 
