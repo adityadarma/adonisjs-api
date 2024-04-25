@@ -53,13 +53,13 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@adonisjs/auth": "^9.1.1",
-    "@adonisjs/core": "^6.2.2",
+    "@adonisjs/auth": "^9.2.0",
+    "@adonisjs/core": "^6.8.0",
     "@adonisjs/cors": "^2.2.1",
     "@adonisjs/lucid": "^20.5.1",
     "@adonisjs/mail": "^9.2.1",
     "@adonisjs/redis": "^8.0.1",
-    "@vinejs/vine": "^1.7.1",
+    "@vinejs/vine": "^2.0.0",
     "adonis-lucid-soft-deletes": "^2.0.0",
     "adonisjs-jobs": "^0.0.15",
     "adonisjs-maintenance": "^2.0.1",
