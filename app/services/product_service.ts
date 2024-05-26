@@ -1,8 +1,8 @@
-import ProductCategoryRepository from "#repositories/product_category_repository";
-import { inject } from "@adonisjs/core";
-import BaseService from "./base_service.js";
-import CustomException from "#exceptions/custom_exception";
-import ProductRepository from "#repositories/product_repository";
+import ProductCategoryRepository from "#repositories/product_category_repository"
+import { inject } from "@adonisjs/core"
+import BaseService from "./base_service.js"
+import CustomException from "#exceptions/custom_exception"
+import ProductRepository from "#repositories/product_repository"
 
 @inject()
 export default class ProductService extends BaseService{

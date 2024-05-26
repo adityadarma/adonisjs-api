@@ -1,4 +1,4 @@
-import Role from '#models/role'
+import Role, { RoleAttribute } from '#models/role'
 import { ModelQueryBuilder } from '@adonisjs/lucid/orm'
 
 export default class RoleRepository {
@@ -10,7 +10,7 @@ export default class RoleRepository {
     return await Role.all()
   }
 
-  async queryAllWithRelation(relations: Array<string> = []) {
+  async queryAllWithRelation(relations: string[] = []) {
     let query = Role.query()
     relations.forEach((relation: any) => {
       query.preload(relation)
@@ -18,7 +18,7 @@ export default class RoleRepository {
     return await query
   }
 
-  async queryAllWithRelationWhere(relations: Array<object> = []) {
+  async queryAllWithRelationWhere(relations: object[] = []) {
     let query = Role.query()
     relations.forEach((relation: any) => {
       query.preload(
@@ -31,7 +31,7 @@ export default class RoleRepository {
     return await query
   }
 
-  async store(data: any, trx?: any) {
+  async store(data: RoleAttribute, trx?: any) {
     return await Role.create(data, { client: trx })
   }
 

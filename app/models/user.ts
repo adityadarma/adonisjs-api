@@ -8,6 +8,13 @@ import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 import { SoftDeletes } from 'adonis-lucid-soft-deletes'
 import Role from './role.js'
 
+export type UserAttribute = {
+  role_id?: number,
+  name: string,
+  email: string,
+  password?: string,
+}
+
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
   passwordColumnName: 'password',

@@ -13,10 +13,10 @@ export default defineConfig({
   commands: [
     () => import('@adonisjs/core/commands'),
     () => import('@adonisjs/lucid/commands'),
-    () => import('adonisjs-scheduler/commands'),
+    () => import('@adonisjs/mail/commands'),
     () => import('adonisjs-jobs/commands'),
     () => import('adonisjs-maintenance/commands'),
-    () => import('@adonisjs/mail/commands')
+    () => import('adonisjs-scheduler/commands'),
   ],
 
   /*
@@ -47,7 +47,7 @@ export default defineConfig({
     () => import('adonisjs-maintenance/MaintenanceProvider'),
     () => import('adonis-lucid-soft-deletes/provider'),
     () => import('@adonisjs/redis/redis_provider'),
-    () => import('@adonisjs/mail/mail_provider')
+    () => import('@adonisjs/mail/mail_provider'),
   ],
 
   /*

@@ -3,6 +3,14 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import ProductCategory from './product_category.js'
 
+export type ProductAttribute = {
+  productCategoryId?: number,
+  name: string,
+  priceBuy: number,
+  priceSell: number,
+  isActive: boolean,
+}
+
 export default class Product extends BaseModel {
   @column({ isPrimary: true })
   declare id: number

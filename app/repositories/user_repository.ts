@@ -1,4 +1,4 @@
-import User from '#models/user'
+import User, { UserAttribute } from '#models/user'
 import { ModelQueryBuilder } from '@adonisjs/lucid/orm'
 
 export default class UserRepository {
@@ -10,7 +10,7 @@ export default class UserRepository {
     return await User.findBy('email', email)
   }
 
-  async queryByIdWithRelation(id: number, relations: Array<string> = []) {
+  async queryByIdWithRelation(id: number, relations: string[] = []) {
     let query = User.query()
     relations.forEach((relation: any) => {
       query.preload(relation)
@@ -22,7 +22,7 @@ export default class UserRepository {
     return await User.all()
   }
 
-  async queryAllWithRelation(relations: Array<string> = []) {
+  async queryAllWithRelation(relations: string[] = []) {
     let query = User.query()
     relations.forEach((relation: any) => {
       query.preload(relation)
@@ -30,7 +30,7 @@ export default class UserRepository {
     return await query
   }
 
-  async queryAllWithRelationWhere(relations: Array<object> = []) {
+  async queryAllWithRelationWhere(relations: object[] = []) {
     let query = User.query()
     relations.forEach((relation: any) => {
       query.preload(
@@ -43,11 +43,11 @@ export default class UserRepository {
     return await query
   }
 
-  async store(data: any, trx?: any) {
+  async store(data: UserAttribute, trx?: any) {
     return await User.create(data, { client: trx })
   }
 
-  async update(model: User, data: any, trx?: any) {
+  async update(model: User, data: UserAttribute, trx?: any) {
     model.useTransaction(trx)
     return await model.merge(data).save()
   }

@@ -22,6 +22,7 @@ router
     router.get('/health', ({ response }) => {
       return response.status(200).json('Server running normaly.')
     })
+
     router
       .group(() => {
         router.post('/register', [AuthController, 'register'])

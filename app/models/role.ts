@@ -3,6 +3,12 @@ import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import User from './user.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 
+export type RoleAttribute = {
+  name: string,
+  description?: string,
+  isActive: boolean,
+}
+
 export default class Role extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
